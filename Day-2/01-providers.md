@@ -72,6 +72,21 @@ resource "aws_instance" "example" {
   depends_on = [module.aws_vpc]
 }
 ```
+# module "aws_vpc":
+
+This module is used to define a VPC (Virtual Private Cloud). It references a local path ./aws_vpc, meaning you likely have a folder named aws_vpc in the same directory as this script.
+The module is set to use the AWS provider in the us-west-2 region.
+ 
+# resource "aws_instance" "example":
+
+This resource block creates an EC2 instance.
+It specifies the AMI (Amazon Machine Image) ID with "ami-0123456789abcdef0", which you’ll need to update to a valid ID for your use case.
+The instance type is set to "t2.micro", which is a free-tier eligible instance type.
+The depends_on parameter specifies that this instance relies on the aws_vpc module to be created first, ensuring that the VPC is set up before launching the instance.
+This setup helps structure the infrastructure code by separating the VPC configuration into its own module, making it reusable and modular.
+
+
+
 
 ### In the required_providers block
 
@@ -92,5 +107,17 @@ resource "aws_instance" "example" {
   instance_type = "t2.micro"
 }
 ```
+In this updated Terraform configuration:
+
+ # required_providers block 
+ 
+    specifies that the aws provider should be sourced from hashicorp/aws with a version constraint of ~> 3.79, meaning it will use version 3.79 or any compatible updates.
+
+# aws_instance "example"
+   
+   resource defines an EC2 instance with an Amazon Machine Image (AMI) ID of "ami-0123456789abcdef0" and an instance type of "t2.micro".
+
+This configuration is minimal and does not include advanced dependencies or module structures. It's suitable for quickly launching a basic EC2 instance within AWS, as long as the AWS provider and required version are available in the environment.
+
 
 The best way to configure providers depends on your specific needs. If you are only using a single provider, then configuring it in the root module is the simplest option. If you are using multiple providers, or if you want to reuse the same provider configuration in multiple resources, then configuring it in a child module is a good option. And if you want to make sure that a specific provider version is used, then configuring it in the required_providers block is the best option.
