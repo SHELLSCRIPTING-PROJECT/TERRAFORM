@@ -72,12 +72,12 @@ resource "aws_instance" "example" {
   depends_on = [module.aws_vpc]
 }
 ```
-# module "aws_vpc":
+### module "aws_vpc":
 
 This module is used to define a VPC (Virtual Private Cloud). It references a local path ./aws_vpc, meaning you likely have a folder named aws_vpc in the same directory as this script.
 The module is set to use the AWS provider in the us-west-2 region.
  
-# resource "aws_instance" "example":
+### resource "aws_instance" "example":
 
 This resource block creates an EC2 instance.
 It specifies the AMI (Amazon Machine Image) ID with "ami-0123456789abcdef0", which you’ll need to update to a valid ID for your use case.
@@ -109,11 +109,11 @@ resource "aws_instance" "example" {
 ```
 In this updated Terraform configuration:
 
- # required_providers block 
+ ### required_providers block 
  
     specifies that the aws provider should be sourced from hashicorp/aws with a version constraint of ~> 3.79, meaning it will use version 3.79 or any compatible updates.
 
-# aws_instance "example"
+### aws_instance "example"
    
    resource defines an EC2 instance with an Amazon Machine Image (AMI) ID of "ami-0123456789abcdef0" and an instance type of "t2.micro".
 
